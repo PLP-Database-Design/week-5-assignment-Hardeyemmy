@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
 const mysql = require("mysql2");
 require('dotenv').config();
 
 app.use(express.json());
+app.use(cors());
 
 const dbconfig = {
     user: process.env.DB_USER,
@@ -30,10 +33,10 @@ app.listen(PORT, () => {
 
     // sending a message to the server
     app.get('/', (req, res) => {
-        res.send("Its TIME!!")
-    })
+        res.send("It's TIME!!")
+        })
     });
-})
+});
 
 
 

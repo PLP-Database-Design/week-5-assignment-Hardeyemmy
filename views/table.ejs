@@ -1,0 +1,17 @@
+<table>
+    <thead>
+        <tr>
+            <th>Patiet ID</th>
+            <th>First Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% results.forEach(row => { %>
+            <tr>
+                <td><%= row.patient_id%></td>
+                <td><%= roe.first_name%></td>
+            </tr>
+
+        <% }) ;%>
+    </tbody>
+</table>
