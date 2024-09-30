@@ -32,14 +32,14 @@ db.connect((err) => {
     app.set('views', __dirname + '/views');
 
     //question 1
-    app.get('/table', (req, res) => {
+    app.get('/patients', (req, res) => {
         db.query('SELECT * FROM patients', (err, results) =>
             {
                 if (err){
                     console.log(err)
                     res.status(500).send('error retrieving data');
                 } else {
-                    res.render('table', {results: results});
+                    res.render('patients', {results: results});
                 }
             
                 
@@ -47,16 +47,31 @@ db.connect((err) => {
     });
 
     //question 2
-    app.get('/providers_table', (req, res) => {
+    app.get('/providers', (req, res) => {
         db.query('SELECT * FROM providers', (err, results) => {
             if (err) {
                 console.log(err)
                 res.status(500).send('Error retrieving data');
             } else {
-                res.render('providers_table', {results: results})
+                res.render('providers', {results: results})
             }
-        })
-    })
+        });
+    });
+
+    //question 3
+    app.get('/patients/:firstName', (req, res) => {
+        const firstName = req.params.firstName;
+      
+        db.query('SELECT * FROM patients WHERE first_name = ?', [firstName], (err, results) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send('Error retrieving patients');
+          } else {
+            res.render('patients', {results: results});
+          }
+        });
+      });
+
     // sending a message to the server
     app.get('/', (req, res) => {
         res.send("It's TIME!!")
