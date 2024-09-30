@@ -72,6 +72,20 @@ db.connect((err) => {
         });
       });
 
+      //question 4
+      app.get('/providers/:specialty', (req, res) => {
+        const specialty = req.params.specialty;
+      
+        db.query('SELECT * FROM providers WHERE provider_specialty = ?', [specialty], (err, results) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send('Error retrieving patients');
+          } else {
+            res.render('providers', {results: results});
+          }
+        });
+      });
+
     // sending a message to the server
     app.get('/', (req, res) => {
         res.send("It's TIME!!")
