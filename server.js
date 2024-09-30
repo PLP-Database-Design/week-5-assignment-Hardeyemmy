@@ -31,6 +31,7 @@ db.connect((err) => {
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/views');
 
+    //question 1
     app.get('/table', (req, res) => {
         db.query('SELECT * FROM patients', (err, results) =>
             {
@@ -43,6 +44,18 @@ db.connect((err) => {
             
                 
             });
+    });
+
+    //question 2
+    app.get('/providers_table', (req, res) => {
+        db.query('SELECT * FROM providers', (err, results) => {
+            if (err) {
+                console.log(err)
+                res.status(500).send('Error retrieving data');
+            } else {
+                res.render('providers_table', {results: results})
+            }
+        })
     })
     // sending a message to the server
     app.get('/', (req, res) => {
