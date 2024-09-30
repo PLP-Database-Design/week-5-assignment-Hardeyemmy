@@ -26,17 +26,33 @@ db.connect((err) => {
     }
     console.log('connected to database sucessfully', db.threadId);
 
-    const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`server is running on http://localhost:${3000}`)
+  
 
+    app.set('view engine', 'ejs');
+    app.set('views', __dirname + '/views');
 
+    app.get('/table', (req, res) => {
+        db.query('SELECT * FROM patients', (err, results) =>
+            {
+                if (err){
+                    console.log(err)
+                    res.status(500).send('error retrieving data');
+                } else {
+                    res.render('table', {results: results});
+                }
+            
+                
+            });
+    })
     // sending a message to the server
     app.get('/', (req, res) => {
         res.send("It's TIME!!")
         })
     });
+
+
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`server is running on http://localhost:${3000}`)
+
 });
-
-
-
